@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    public function run(): void
-    {
-        Post::factory()->count(20)->create();
-    }
+    protected $fillable = ['title', 'description'];
+
+    // public function run(): void
+    // {
+    //     Post::factory()->count(20)->create();
+    // }
 }

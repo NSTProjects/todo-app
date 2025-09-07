@@ -18,6 +18,7 @@
                 <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
                 <flux:navlist.item icon="home" :href="route('home')" :current="request()->routeIs('home')" wire:navigate>{{ __('Home') }}</flux:navlist.item>
                 <flux:navlist.item icon="home" :href="route('counter')" :current="request()->routeIs('counter')" wire:navigate>{{ __('Counter') }}</flux:navlist.item>
+                <flux:navlist.item icon="home" :href="route('post')" :current="request()->routeIs('post')" wire:navigate>{{ __('post') }}</flux:navlist.item>
             </flux:navlist.group>
         </flux:navlist>
 
@@ -128,6 +129,7 @@
     {{ $slot }}
 
     @fluxScripts
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
