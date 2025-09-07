@@ -8,8 +8,17 @@
         </div>
 
         <div class="card-body">
+
+
             @if(!$showForm)
             <table class="table table-hover table-bordered align-middle">
+                @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+
                 <thead class="table-light">
                     <tr>
                         <th scope="col">Title</th>
@@ -22,7 +31,10 @@
                     <tr>
                         <td>{{ $post->title }}</td>
                         <td>{{ $post->description }}</td>
-                        <td class="text-center">actions</td>
+                        <td class="text-center">
+                            <button class="btn btn-primary" wire:click="edit({{$post->id}})"> Edit</button>
+                            <button class="btn btn-danger" wire:click="delete({{$post->id}})" wire:confirm.prompt="Are you sure?\n\nType DELETE to confirm|DELETE"> Delete</button>
+                        </td>
                     </tr>
                     @empty
                     <tr>
@@ -36,7 +48,7 @@
                 {{ $posts->links() }}
             </div>
             @else
-            <form wire:submit.prevent="store">
+            <form @if($editID) wire:submit="updatePost" @else wire:submit.prevent="store" @endif>
                 <div class="mb-3">
                     <label class="form-label">Title</label>
                     <input type="text" wire:model.blur="title" class="form-control">
@@ -44,12 +56,12 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Content</label>
-                    <textarea wire:model.blur="content" class="form-control" cols="30" rows="5"></textarea>
+                    <label class="form-label">descroption</label>
+                    <textarea wire:model.blur="description" class="form-control" cols="30" rows="5"></textarea>
                     @error('content') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">@if($editID)update @else Submit @endif</button>
                 <button type="button" class="btn btn-danger ms-2" wire:click="togglePostForm">Close</button>
             </form>
             @endif
